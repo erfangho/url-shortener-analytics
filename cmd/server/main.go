@@ -7,6 +7,7 @@ import (
 	grpcserver "github.com/erfangho/url-shortener-analytics/internal/grpc"
 	pb "github.com/erfangho/url-shortener-analytics/proto"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 func main() {
@@ -17,6 +18,7 @@ func main() {
 	}
 
 	server := grpc.NewServer()
+	reflection.Register(server)
 
 	analyticsServer := grpcserver.NewAnalyticServer()
 	pb.RegisterAnalyticsServiceServer(server, analyticsServer)
